@@ -36,5 +36,5 @@
 ## 开源库
 
 - [python-vad](https://github.com/wangshub/python-vad): 🔈 Use python to achieve voice activity detection, this little program may be helpful for voice application
-- [wenet](https://github.com/wenet-e2e/wenet): Production First and Production Ready End-to-End Speech Recognition Toolkit
+- [PaddleSpeech](https://github.com/PaddlePaddle/PaddleSpeech): Easy-to-use Speech Toolkit including Self-Supervised Learning model, SOTA/Streaming ASR with punctuation, Streaming TTS with text frontend, Speaker Verification System, End-to-End Speech Translation and Keyword Spotting. Won NAACL2022 Best Demo Award.
 - [MaaAssistantArknights](https://github.com/MaaAssistantArknights/MaaAssistantArknights): 《明日方舟》小助手，全日常一键长草！| An Arknights assistant compatible with EN, JP, KR, ZH_TW clients

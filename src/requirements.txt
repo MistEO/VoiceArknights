@@ -1,4 +1,5 @@
 pyaudio
 webrtcvad
-wenetruntime
-wenet
+paddlepaddle
+paddlespeech
+python-opencv
