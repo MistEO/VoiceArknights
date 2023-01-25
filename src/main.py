@@ -21,6 +21,6 @@ asr = wenet.Decoder(lang='chs', context=context, context_score=10.0)
 
 while not leave:
     pyvad.run()
-    result = asr.decode(audio_file=pyvad.WAV_PATH)
+    result = asr.decode_wav(pyvad.WAV_PATH)
     print(result)
     asr.reset()
