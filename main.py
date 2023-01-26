@@ -3,7 +3,7 @@ from paddlespeech.cli.asr.infer import ASRExecutor
 from maa.Python import asst
 
 from src.vad import pyvad
-from src.operators import all_opers
+from src.gamedata.operators import all_opers
 
 import signal
 import pathlib
