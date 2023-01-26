@@ -7,7 +7,7 @@
 1. 安装依赖
 
     ```bash
-    pip install -r src/requirements.txt
+    pip install -r requirements.txt
     ```
 
 2. 下载 MAA
@@ -24,13 +24,13 @@
     ├─src
     │  ├─vad
     │  └─......
-    └─......
+    └─main.py
     ```
 
 3. 运行
 
     ```bash
-    python src/main.py
+    python main.py
     ```
 
 ## 开源库
