@@ -1,3 +1,5 @@
+import pypinyin
+
 all_opers = [
     "Lancet-2",
     "铅踝",
@@ -278,3 +280,14 @@ all_opers = [
     "猎蜂",
     "杰克"
 ]
+
+def name_order(name):
+    return len(name)
+
+all_opers.sort(key=name_order, reverse=True)
+
+def to_pinyin(text) -> str:
+    return ' '.join([item[0] for item in pypinyin.pinyin(
+        text, style=pypinyin.NORMAL, errors='default')]).lower()
+
+all_opers_piyin = {item : to_pinyin(item) for item in all_opers if not item.isascii()}

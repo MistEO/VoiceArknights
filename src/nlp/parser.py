@@ -1,16 +1,18 @@
-from src.gamedata.operators import all_opers
+from src.gamedata.operators import all_opers_piyin, to_pinyin
 
 import re
 import cn2an
 
 
-start_keys = ["开始"]
+start_keys = ["开始", "行动"]
 
 def parse_text(text):
     is_start = False
     for key in start_keys:
         if key in text:
             is_start = True
+
+    params = {}
 
     if is_start:
         
@@ -41,6 +43,7 @@ type_dict = {
     "撤退": "撤退",
     "技能": "技能",
     "倍速": "二倍速",
+    "倍数": "二倍速",
 }
 
 direction_dict = {
@@ -69,7 +72,8 @@ relative_location = {
     "右下": [1, 1],
 }
 
-location_re = "第(.+)[行排]第(.+)列"
+# 行和列，反过来的
+location_re = "第([零一二三四五六七八九十]+).第([零一二三四五六七八九十]+)."
 
 location_cache = {}
 
@@ -102,16 +106,21 @@ def parse_actions(text):
 
     ### name
     name_list = []
-    for name in all_opers:
-        if name in text:
-            name_list.append(name)
+    text_pinyin = to_pinyin(text)
+    for name, pinyin in all_opers_piyin.items():
+        if " " + pinyin + " " in text_pinyin:
+            text_pinyin = text_pinyin.replace(pinyin, "")
+            name_list.append((name, pinyin))
 
-    def name_order(name):
-        return text.index(name)
+    text_pinyin = to_pinyin(text)
+
+    def name_order(pair):
+        return text_pinyin.index(pair[1])
 
     name_list.sort(key=name_order)
     print(name_list)
-
+    
+    name_list = [name for name, _ in name_list]
     if name_list:
         action["name"] = name_list[0]
 
@@ -131,8 +140,8 @@ def parse_actions(text):
 
     elif len(name_list) == 1 and name_list[0] in location_cache:
         loc = location_cache[name_list[0]]
-        x = loc[0]
-        y = loc[1]
+        x = loc[1]
+        y = loc[0]
 
     elif len(name_list) == 2 and name_list[1] in location_cache:
         for key, value in relative_location.items():
@@ -142,12 +151,13 @@ def parse_actions(text):
                 y = base[1] + value[1]
                 break
 
-    action["location"] = [x, y]
-    if name_list:
-        location_cache[name_list[0]] = [x, y]
+    if x != 0 and y != 0:
+        action["location"] = [x, y]
+        if name_list:
+            location_cache[name_list[0]] = [x, y]
 
     ### Generate maa copilot json
-    actions = [action]
+    actions_list = [action]
 
-    print(actions)
-    return actions
+    print(actions_list)
+    return actions_list

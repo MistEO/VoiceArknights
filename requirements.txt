@@ -4,3 +4,4 @@ paddlepaddle
 paddlespeech
 python-opencv
 cn2an
+pypinyin

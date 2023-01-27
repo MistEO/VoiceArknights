@@ -32,10 +32,6 @@ WAV_DIR = "temp"
 WAV_PATH = WAV_DIR + "/" + "recording.wav"
 
 
-vad = webrtcvad.Vad(1)
-pa = pyaudio.PyAudio()
-
-
 got_a_sentence = False
 leave = False
 
@@ -79,6 +75,9 @@ def normalize(snd_data):
 def run():
     global leave, got_a_sentence
     clear()
+
+    vad = webrtcvad.Vad(1)
+    pa = pyaudio.PyAudio()
 
     stream = pa.open(format=FORMAT,
                     channels=CHANNELS,
@@ -139,7 +138,7 @@ def run():
                 # voiced_frames.append(chunk)
                 ring_buffer.append(chunk)
                 num_unvoiced = NUM_WINDOW_CHUNKS_END - sum(ring_buffer_flags_end)
-                if num_unvoiced > 0.90 * NUM_WINDOW_CHUNKS_END or TimeUse > 10:
+                if num_unvoiced > 0.90 * NUM_WINDOW_CHUNKS_END or TimeUse > 40:
                     sys.stdout.write(' Close ')
                     triggered = False
                     got_a_sentence = True

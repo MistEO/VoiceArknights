@@ -22,7 +22,7 @@ def init_maa():
     maa = asst.Asst()
 
     # 改成你自己的 adb 路径和地址
-    assert maa.connect('adb.exe', '127.0.0.1:5555'), "ADB 连接失败"
+    assert maa.connect("adb.exe", "127.0.0.1:5555"), "ADB 连接失败"
 
 
 def start_step(params):
@@ -42,6 +42,15 @@ if __name__ == "__main__":
     signal.signal(signal.SIGINT, handle_int)
     
     init_maa()
+
+    stage_name = input("请输入关卡名：")
+    start_step(params = {
+            "type": "copilot",
+            "subtype": "stage",
+            "details": {
+                "stage_name": stage_name,
+            },
+        })
 
     while not leave:
         pyvad.run()
