@@ -3,6 +3,38 @@ from src.gamedata.operators import all_opers
 import re
 import cn2an
 
+
+start_keys = ["开始"]
+
+def parse_text(text):
+    is_start = False
+    for key in start_keys:
+        if key in text:
+            is_start = True
+
+    if is_start:
+        
+        params = {
+            "type": "copilot",
+            "subtype": "start",
+        }
+    else:
+        actions = parse_actions(text)
+        if not actions:
+            return None
+        
+        params = {
+            "type": "copilot",
+            "subtype": "action",
+            "details": {
+                "actions": actions,
+            },
+        }
+
+    print(params)
+    return params
+
+
 type_dict = {
     "部署": "部署",
     "放到": "部署",
@@ -41,7 +73,7 @@ location_re = "第(.+)[行排]第(.+)列"
 
 location_cache = {}
 
-def parse_action(text):
+def parse_actions(text):
     # sample: 
     # 部署桃金娘到第七排第五列朝左
     # 把风笛放到桃金娘左边朝右
@@ -52,11 +84,16 @@ def parse_action(text):
     action = {}
 
     ### type
+    invalid = True
     for key, value in type_dict.items():
         if key in text:
             action["type"] = value
+            invalid = False
             break
     
+    if invalid:
+        return None
+
     ### direction
     for key, value in direction_dict.items():
         if key in text:
@@ -91,7 +128,11 @@ def parse_action(text):
             y = cn2an.cn2an(y_cn)
         except ValueError:
             print("位置识别错误")
-            pass
+
+    elif len(name_list) == 1 and name_list[0] in location_cache:
+        loc = location_cache[name_list[0]]
+        x = loc[0]
+        y = loc[1]
 
     elif len(name_list) == 2 and name_list[1] in location_cache:
         for key, value in relative_location.items():
@@ -105,18 +146,8 @@ def parse_action(text):
     if name_list:
         location_cache[name_list[0]] = [x, y]
 
-    ### generate maa params
-    print(action)
+    ### Generate maa copilot json
+    actions = [action]
 
-    params = {
-        "type": "copilot",
-        "subtype": "action",
-        "details": {
-            "actions": [
-                action
-            ]
-        }
-    }
-    print(params)
-
-    return params
+    print(actions)
+    return actions

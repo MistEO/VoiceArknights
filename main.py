@@ -47,6 +47,6 @@ if __name__ == "__main__":
         pyvad.run()
         result = asr(audio_file=pyvad.WAV_PATH)
         print(result)
-        action = parser.parse_action(result)
+        action = parser.parse_text(result)
         if action:
             start_step(action)
