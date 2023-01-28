@@ -140,8 +140,8 @@ def parse_actions(text):
 
     elif len(name_list) == 1 and name_list[0] in location_cache:
         loc = location_cache[name_list[0]]
-        x = loc[1]
-        y = loc[0]
+        x = loc[0]
+        y = loc[1]
 
     elif len(name_list) == 2 and name_list[1] in location_cache:
         for key, value in relative_location.items():
