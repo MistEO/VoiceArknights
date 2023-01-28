@@ -12,9 +12,7 @@
 
 2. 下载 MAA
 
-    目前带单控的接口 MAA 还没有作为正式版本发布，所以请下载 [最新内测版](https://github.com/MaaAssistantArknights/MaaRelease/releases)，这里只有 Windows 的，mac 或者 linux 可以去 MAA 的 [主仓库 CI](https://github.com/MaaAssistantArknights/MaaAssistantArknights/actions) 里面找。或者等一段时间正式版发布  
-
-    解压到 maa 文件夹（小写），使用下面的目录结构
+    下载 [MAA](https://github.com/MaaAssistantArknights/MaaAssistantArknights/releases)，解压到 maa 文件夹（小写），使用下面的目录结构  
 
     ```tree
     ├─maa
@@ -27,7 +25,8 @@
     └─main.py
     ```
 
-3. 运行
+3. 修改 `main.py` 文件中的 adb 路径和地址
+4. 运行
 
     ```bash
     python main.py
