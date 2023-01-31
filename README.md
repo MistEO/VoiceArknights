@@ -2,6 +2,10 @@
 
 基于 ASR 技术 与 《MAA 明日方舟小助手》的明日方舟半自动化控制（其实是整活项目
 
+## 效果演示
+
+[B 站视频](https://www.bilibili.com/video/BV1Y34y1f7zG)
+
 ## 使用说明
 
 1. 安装依赖
